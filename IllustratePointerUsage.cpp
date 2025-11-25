@@ -2,49 +2,48 @@
 
 using namespace std;
 
-// --- PART 4: POINTER USAGE AND DEALLOCATION ILLUSTRATION ---
-// Illustrates how to use a Pointer and the importance of deallocation.
+// --- PHẦN 4: MINH HỌA SỬ DỤNG VÀ GIẢI PHÓNG CON TRỎ ---
+// Minh họa cách sử dụng Con trỏ và tầm quan trọng của việc giải phóng.
 void IllustratePointerUsage() {
-  cout << "\n--- 4. POINTER USAGE AND DEALLOCATION ILLUSTRATION ---" << endl;
+  cout << "\n--- 4. MINH HỌA SỬ DỤNG VÀ GIẢI PHÓNG CON TRỎ ---" << endl;
 
-  // 1. Basic Pointer Usage (Pointing to a Stack variable)
+  // 1. Sử dụng Con trỏ Cơ bản (Trỏ đến biến Stack)
   int value = 42;
-  int *ptrValue = &value; // Assign the address of 'value' to 'ptrValue'
+  int *ptrValue = &value; // Gán địa chỉ của 'value' cho 'ptrValue'
 
-  cout << "Value: " << value << endl;
-  cout << "Address of Value (&value): " << &value << endl;
-  cout << "Pointer Value (ptrValue): " << ptrValue << endl;
-  cout << "Access via Pointer (*ptrValue): " << *ptrValue << endl;
+  cout << "Giá trị: " << value << endl;
+  cout << "Địa chỉ của Giá trị (&value): " << &value << endl;
+  cout << "Giá trị Con trỏ (ptrValue): " << ptrValue << endl;
+  cout << "Truy cập qua Con trỏ (*ptrValue): " << *ptrValue << endl;
 
-  // Changing the value via Pointer
+  // Thay đổi giá trị qua Con trỏ
   *ptrValue = 99;
-  cout << "New Value: " << value << endl;
+  cout << "Giá trị Mới: " << value << endl;
 
-  // 2. Using Pointer for Dynamic Memory (Heap) and Deallocation
-  // This is where manual memory management becomes critical.
+  // 2. Sử dụng Con trỏ cho Bộ nhớ Động (Heap) và Giải phóng
+  // Đây là nơi quản lý bộ nhớ thủ công trở nên quan trọng.
   int size = 5;
-  int *dynamicArray =
-      new int[size]; // Allocating an array of 5 elements on the Heap
+  int *dynamicArray = new int[size]; // Cấp phát một mảng 5 phần tử trên Heap
 
   for (int i = 0; i < size; ++i) {
     dynamicArray[i] = (i + 1) * 10;
   }
-  cout << "Dynamic Array on Heap: " << dynamicArray[0] << ", "
-       << dynamicArray[4] << "..." << endl;
+  cout << "Mảng Động trên Heap: " << dynamicArray[0] << ", " << dynamicArray[4]
+       << "..." << endl;
 
-  // IMPORTANT: Deallocating the array memory allocated on the Heap
-  // Must use 'delete[]' for arrays.
+  // QUAN TRỌNG: Giải phóng bộ nhớ mảng đã cấp phát trên Heap
+  // Phải sử dụng 'delete[]' cho mảng.
   delete[] dynamicArray;
-  dynamicArray = nullptr; // Preventing dangling pointer usage error
+  dynamicArray = nullptr; // Ngăn chặn lỗi sử dụng con trỏ lơ lửng
 
-  // Note: In modern C++, Smart Pointers (std::unique_ptr, std::shared_ptr)
-  // should be used to automate memory deallocation and prevent leaks. Example:
-  // auto modern_ptr = std::make_unique<int>(10);
-  cout << "Dynamic array memory has been safely deallocated." << endl;
+  // Lưu ý: Trong C++ hiện đại, nên sử dụng Smart Pointers (std::unique_ptr,
+  // std::shared_ptr) để tự động hóa việc giải phóng bộ nhớ và ngăn chặn rò rỉ.
+  // Ví dụ: auto modern_ptr = std::make_unique<int>(10);
+  cout << "Bộ nhớ mảng động đã được giải phóng an toàn." << endl;
 }
 int main() {
-    // Call illustration functions from the previous questions
-    IllustratePointerUsage();
+  // Gọi các hàm minh họa từ các câu hỏi trước
+  IllustratePointerUsage();
 
-    return 0;
+  return 0;
 }

@@ -2,41 +2,39 @@
 
 using namespace std;
 
-// --- PART 3: MEMORY ALLOCATION AND DEALLOCATION ILLUSTRATION ---
-// Illustrates the difference between Stack (Static Memory) and Heap (Dynamic
-// Memory) allocation.
+// --- PHẦN 3: MINH HỌA CẤP PHÁT VÀ GIẢI PHÓNG BỘ NHỚ ---
+// Minh họa sự khác biệt giữa cấp phát Stack (Bộ nhớ Tĩnh) và Heap (Bộ nhớ
+// Động).
 void IllustrateMemoryAllocation() {
-  cout << "\n--- 3. MEMORY ALLOCATION AND DEALLOCATION ILLUSTRATION ---"
+  cout << "\n--- 3. MINH HỌA CẤP PHÁT VÀ GIẢI PHÓNG BỘ NHỚ ---" << endl;
+
+  // 1. Cấp phát STACK (Bộ nhớ Tĩnh)
+  // Các biến được cấp phát khi hàm được gọi và tự động giải phóng
+  // khi hàm kết thúc.
+  int stackVariable = 100; // Cấp phát trên Stack
+  cout << "Stack: Biến 'stackVariable' = " << stackVariable
+       << " (Tự động Giải phóng)" << endl;
+
+  // 2. Cấp phát HEAP (Bộ nhớ Động)
+  // Yêu cầu sử dụng toán tử 'new' và quản lý thủ công (hoặc Smart Pointers).
+  // Kích thước có thể không biết tại thời điểm biên dịch.
+
+  // Cấp phát bộ nhớ cho một số nguyên trên Heap
+  int *heapPtr = new int(200); // Cấp phát trên Heap (Cấp phát Động)
+  cout << "Heap: Giá trị vùng nhớ đã cấp phát: " << *heapPtr << endl;
+
+  // Giải phóng bộ nhớ Heap
+  // Nếu không có lệnh 'delete', bộ nhớ này sẽ bị rò rỉ (memory leak).
+  delete heapPtr;    // Giải phóng bộ nhớ Heap
+  heapPtr = nullptr; // Đặt con trỏ về NULL để tránh sử dụng con trỏ lơ lửng
+
+  cout << "Heap: Vùng nhớ đã cấp phát đã được giải phóng. (Quản lý Thủ công)"
        << endl;
-
-  // 1. STACK Allocation (Static Memory)
-  // Variables are allocated when the function is called and automatically
-  // deallocated when the function ends.
-  int stackVariable = 100; // Allocated on Stack
-  cout << "Stack: Variable 'stackVariable' = " << stackVariable
-       << " (Automatically Deallocated)" << endl;
-
-  // 2. HEAP Allocation (Dynamic Memory)
-  // Requires using the 'new' operator and manual management (or Smart
-  // Pointers). The size might not be known at compile time.
-
-  // Allocating memory for an integer on the Heap
-  int *heapPtr = new int(200); // Allocated on Heap (Dynamic Allocation)
-  cout << "Heap: Allocated memory region value: " << *heapPtr << endl;
-
-  // Deallocating Heap Memory
-  // Without the 'delete' command, this memory would leak (memory leak).
-  delete heapPtr;    // Deallocating Heap memory
-  heapPtr = nullptr; // Set pointer to NULL to prevent using a dangling pointer
-
-  cout << "Heap: Allocated memory region has been deallocated. (Manual "
-          "Management)"
-       << endl;
-  // [Image of Stack and Heap Memory Model]
+  // [Hình ảnh mô hình bộ nhớ Stack và Heap]
 }
 int main() {
-    // Call illustration functions from the previous questions
-    IllustrateMemoryAllocation();
+  // Gọi các hàm minh họa từ các câu hỏi trước
+  IllustrateMemoryAllocation();
 
-    return 0;
+  return 0;
 }
