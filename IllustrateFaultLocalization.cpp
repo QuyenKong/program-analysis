@@ -57,3 +57,9 @@ void IllustrateFaultLocalization() {
        << endl;
   //
 }
+int main() {
+    // Call illustration functions from the previous questions
+    IllustrateFaultLocalization();
+
+    return 0;
+}

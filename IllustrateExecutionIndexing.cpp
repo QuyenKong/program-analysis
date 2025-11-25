@@ -42,3 +42,8 @@ void IllustrateExecutionIndexing() {
        << endl;
   //
 }
+int main() {
+    IllustrateExecutionIndexing();
+
+    return 0;
+}

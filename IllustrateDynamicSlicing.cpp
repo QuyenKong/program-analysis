@@ -42,3 +42,9 @@ void IllustrateDynamicSlicing() {
        << endl;
   //
 }
+
+int main() {
+    IllustrateDynamicSlicing();
+
+    return 0;
+}

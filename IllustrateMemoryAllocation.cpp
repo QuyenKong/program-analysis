@@ -34,3 +34,9 @@ void IllustrateMemoryAllocation() {
        << endl;
   // [Image of Stack and Heap Memory Model]
 }
+int main() {
+    // Call illustration functions from the previous questions
+    IllustrateMemoryAllocation();
+
+    return 0;
+}

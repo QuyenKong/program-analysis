@@ -42,3 +42,9 @@ void IllustratePointerUsage() {
   // auto modern_ptr = std::make_unique<int>(10);
   cout << "Dynamic array memory has been safely deallocated." << endl;
 }
+int main() {
+    // Call illustration functions from the previous questions
+    IllustratePointerUsage();
+
+    return 0;
+}

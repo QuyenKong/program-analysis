@@ -31,3 +31,9 @@ void IllustrateTracing() {
        << endl;
   //
 }
+int main() {
+    // Call illustration functions for the new questions (Dynamic Analysis)
+    IllustrateTracing();
+
+    return 0;
+}

@@ -51,3 +51,9 @@ void IllustrateControlFlowGraph() {
   // and ensures that the analysis is applied to every possible path.*
   //
 }
+int main() {
+    // Call illustration functions from the previous questions
+    IllustrateControlFlowGraph();
+
+    return 0;
+}

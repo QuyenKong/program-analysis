@@ -44,3 +44,9 @@ void IllustrateDataflowAnalysis() {
        << x << endl;
   //
 }
+int main() {
+    // Call illustration functions from the previous questions
+    IllustrateDataflowAnalysis();
+
+    return 0;
+}
