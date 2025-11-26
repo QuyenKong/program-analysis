@@ -1,0 +1,70 @@
+@startuml IllustratePointerModernUsage_Timeline
+title Trình tự thời gian: Con trỏ hiện đại (unique_ptr/shared_ptr) — IllustratePointerModernUsage.cpp
+
+participant "Thời gian thực thi" as TIME
+participant "Luồng/Chương trình" as CODE
+participant STACK
+participant HEAP
+
+TIME -> CODE : Bắt đầu main() -> IllustratePointerModernUsage()
+
+'== Phần 1: unique_ptr=='
+' 1) unique_ptr có phạm vi khối
+CODE -> STACK : Vào scope { unique_ptr }
+activate STACK
+CODE -> HEAP : make_unique<int>(10) => upNumber
+activate HEAP
+note right of HEAP
+  Cấp phát 1 int trên HEAP và được quản lý bởi unique_ptr
+  Tự động delete khi unique_ptr ra khỏi scope
+end note
+
+CODE -> HEAP : make_unique<int[]>(n=3) => upArray
+note right of HEAP
+  Cấp phát mảng 3 phần tử (delete[] tự động)
+  CODE gán các phần tử 11,22,33
+end note
+
+CODE -> CODE : upMoved = move(upNumber)
+note over CODE
+  Quyền sở hữu chuyển sang upMoved
+  upNumber trở thành nullptr
+end note
+deactivate HEAP
+deactivate STACK
+note right of CODE
+  Kết thúc scope: upMoved và upArray hủy
+  -> HEAP được giải phóng tự động
+end note
+
+' 2) shared_ptr: sở hữu chia sẻ (đếm tham chiếu)
+== Phần 2: shared_ptr ==
+CODE -> STACK : Vào scope { shared_ptr }
+activate STACK
+CODE -> HEAP : make_shared<int>(2025) => spA
+activate HEAP
+note right of HEAP
+  Cấp phát đối tượng và control block (đếm tham chiếu)
+  use_count = 1
+end note
+
+CODE -> STACK : Vào scope nội bộ { spB = spA }
+activate STACK
+note over CODE
+  Gán spB = spA -> use_count = 2
+end note
+deactivate STACK
+note over CODE
+  Thoát scope nội bộ -> spB hủy -> use_count = 1
+end note
+
+deactivate HEAP
+deactivate STACK
+note right of CODE
+  Thoát scope shared_ptr -> spA hủy
+  use_count về 0 -> tài nguyên HEAP được giải phóng
+end note
+
+TIME --> CODE : Kết thúc IllustratePointerModernUsage()
+
+@enduml

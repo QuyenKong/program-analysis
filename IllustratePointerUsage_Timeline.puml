@@ -1,0 +1,38 @@
+@startuml IllustratePointerUsage_Timeline
+title Trình tự thời gian sử dụng và giải phóng con trỏ
+
+participant "Thời gian thực thi" as TIME
+participant "Luồng/Chương trình" as CODE
+participant STACK
+participant HEAP
+
+TIME -> CODE : Bắt đầu main() -> IllustratePointerUsage()
+
+== Phần 1: Con trỏ trỏ tới biến trên STACK ==
+' 1) Con trỏ trỏ tới biến trên STACK
+CODE -> STACK : Khởi tạo int value = 42
+activate STACK
+CODE -> STACK : int* ptrValue = &value
+note right of STACK
+  ptrValue trỏ tới địa chỉ của value (biến ở STACK)
+  \*ptrValue đọc/ghi trực tiếp value
+end note
+CODE -> STACK : \*ptrValue = 99 (ghi qua con trỏ)
+
+== Phần 2: Con trỏ trên STACK trỏ tới HEAP ==
+' 2) Con trỏ trên STACK trỏ tới vùng nhớ trên HEAP và giải phóng
+CODE -> STACK : Khai báo int* dynamicArray (biến con trỏ ở STACK)
+CODE -> HEAP : dynamicArray = new int[size=5]
+activate HEAP
+note right of HEAP
+  Cấp phát mảng 5 phần tử trên HEAP
+  CODE ghi các phần tử: 10,20,30,40,50
+end note
+CODE -> HEAP : delete[] dynamicArray
+deactivate HEAP
+CODE -> STACK : dynamicArray = nullptr (tránh dangling)
+deactivate STACK
+
+TIME --> CODE : Kết thúc IllustratePointerUsage()
+
+@enduml

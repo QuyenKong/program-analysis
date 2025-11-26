@@ -1,0 +1,45 @@
+@startuml IllustrateMemoryAllocation_Timeline
+title Trình tự thời gian cấp phát và giải phóng bộ nhớ
+
+' Khai báo các participant cho biểu đồ tuần tự
+participant "Thời gian thực thi" as TIME
+participant "Luồng/Chương trình" as CODE
+participant STATIC
+participant STACK
+participant HEAP
+
+TIME -> STATIC : Sẵn sàng trước khi main() chạy
+activate STATIC
+note right of STATIC
+  Vùng Data Segment (Static/Global) được khởi tạo
+  trước khi main() chạy:
+  - g_staticFileScope được init (ví dụ = 42)
+  - staticLocalCounter (biến static cục bộ của hàm)
+    lưu ở vùng Static và giữ giá trị giữa các lần gọi
+end note
+TIME -> CODE : Bắt đầu thực thi main()
+CODE -> STACK : Gọi IllustrateMemoryAllocation() lần 1\n(tạo stack frame/stackVariable)
+activate STACK
+CODE -> STATIC : Đọc g_staticFileScope (=42)
+CODE -> STATIC : staticLocalCounter++ (tăng và giữ lại)
+CODE -> HEAP : new int(200) (heapPtr)
+activate HEAP
+CODE -> HEAP : delete heapPtr
+deactivate HEAP
+deactivate STACK
+
+TIME -> CODE : Thực thi tiếp — Gọi hàm lần 2\n(stackVariable mới, staticLocalCounter vẫn giữ)
+CODE -> STACK : Gọi IllustrateMemoryAllocation() lần 2
+activate STACK
+CODE -> STATIC : Đọc g_staticFileScope (=42)
+CODE -> STATIC : staticLocalCounter++ (tăng tiếp)
+CODE -> HEAP : new int(200) (heapPtr)
+activate HEAP
+CODE -> HEAP : delete heapPtr
+deactivate HEAP
+deactivate STACK
+
+TIME --> STATIC : Kết thúc chương trình
+deactivate STATIC
+
+@enduml

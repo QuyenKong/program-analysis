@@ -1,0 +1,40 @@
+.idea/
+
+# C/C++ compiled artifacts
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.lo
+*.la
+*.gch
+*.pch
+*.out
+*.exe
+a.out
+
+# Build system files and directories
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+.serena
+
+# Project-specific compiled binaries (executables without extensions)
+IllustrateControlFlowGraph
+IllustrateDataflowAnalysis
+IllustrateDynamicSlicing
+IllustrateExecutionIndexing
+IllustrateFaultLocalization
+IllustrateMemoryAllocation
+IllustratePointerUsage
+IllustratePointerModernUsage
+IllustrateTracing
+WalletWithdrawal
+homework

@@ -2,39 +2,34 @@
 
 using namespace std;
 
-// --- PHẦN 3: MINH HỌA CẤP PHÁT VÀ GIẢI PHÓNG BỘ NHỚ ---
-// Minh họa sự khác biệt giữa cấp phát Stack (Bộ nhớ Tĩnh) và Heap (Bộ nhớ
-// Động).
+// Biến có thời gian sống tĩnh ở phạm vi tệp (tồn tại suốt chương trình)
+static int g_staticFileScope = 42; // Tĩnh (Static): cấp phát trước khi chạy
+
 void IllustrateMemoryAllocation() {
-  cout << "\n--- 3. MINH HỌA CẤP PHÁT VÀ GIẢI PHÓNG BỘ NHỚ ---" << endl;
+  // 1) TĨNH (STATIC)
+  static int staticLocalCounter = 0; // cũng là bộ nhớ tĩnh, lưu qua nhiều lần gọi
+  ++staticLocalCounter;
+  cout << "Tĩnh (Static): g_staticFileScope = " << g_staticFileScope
+      << ", staticLocalCounter sau khi ++ = " << staticLocalCounter << endl;
 
-  // 1. Cấp phát STACK (Bộ nhớ Tĩnh)
-  // Các biến được cấp phát khi hàm được gọi và tự động giải phóng
-  // khi hàm kết thúc.
-  int stackVariable = 100; // Cấp phát trên Stack
-  cout << "Stack: Biến 'stackVariable' = " << stackVariable
-       << " (Tự động Giải phóng)" << endl;
+  // 2) ĐỘNG TỰ ĐỘNG (AUTOMATIC - STACK)
+  int stackVariable = 100; // Automatic trên Stack
+  cout << "Động tự động (Stack): stackVariable = " << stackVariable
+      << " (Tự động giải phóng khi ra khỏi hàm)" << endl;
 
-  // 2. Cấp phát HEAP (Bộ nhớ Động)
-  // Yêu cầu sử dụng toán tử 'new' và quản lý thủ công (hoặc Smart Pointers).
-  // Kích thước có thể không biết tại thời điểm biên dịch.
+  // 3) ĐỘNG ĐIỀU KHIỂN BỞI CHƯƠNG TRÌNH (PROGRAM CONTROLLED - HEAP)
+  int *heapPtr = new int(200); // Cấp phát trên Heap
+  cout << "Động điều khiển (Heap): Giá trị được cấp phát = " << *heapPtr << endl;
 
-  // Cấp phát bộ nhớ cho một số nguyên trên Heap
-  int *heapPtr = new int(200); // Cấp phát trên Heap (Cấp phát Động)
-  cout << "Heap: Giá trị vùng nhớ đã cấp phát: " << *heapPtr << endl;
-
-  // Giải phóng bộ nhớ Heap
-  // Nếu không có lệnh 'delete', bộ nhớ này sẽ bị rò rỉ (memory leak).
-  delete heapPtr;    // Giải phóng bộ nhớ Heap
-  heapPtr = nullptr; // Đặt con trỏ về NULL để tránh sử dụng con trỏ lơ lửng
-
-  cout << "Heap: Vùng nhớ đã cấp phát đã được giải phóng. (Quản lý Thủ công)"
-       << endl;
-  // [Hình ảnh mô hình bộ nhớ Stack và Heap]
+  // Giải phóng vùng nhớ Heap được cấp phát thủ công
+  delete heapPtr; // nếu quên sẽ gây rò rỉ bộ nhớ
+  heapPtr = nullptr; // tránh con trỏ lơ lửng
+  cout << "Động điều khiển (Heap): Đã giải phóng vùng nhớ" << endl;
 }
-int main() {
-  // Gọi các hàm minh họa từ các câu hỏi trước
-  IllustrateMemoryAllocation();
 
+int main() {
+  // Gọi 2 lần để thấy biến tĩnh giữ giá trị giữa các lần gọi
+  IllustrateMemoryAllocation();
+  IllustrateMemoryAllocation();
   return 0;
 }
